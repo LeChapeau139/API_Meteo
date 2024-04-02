@@ -281,4 +281,3 @@ function searchWeather(city) {
         });
 }
 
-
