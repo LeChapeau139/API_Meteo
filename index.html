@@ -9,17 +9,25 @@
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Roboto:wght@300;400;500;700;900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+      crossorigin=""
+    />
     <title>App Météo Projet API</title>
 </head>
 
+    
 <body>
 
+    <img id="fond" src=""></img>
+    
     <div class="search-box">
         <i class="fa-solid fa-location-dot"></i>
         <input type="text" id="recherche" placeholder="Enter your location">
         <div class="suggestions"></div>
         <button class="fa-solid fa-magnifying-glass"></button>
-        <button class="fa-solid fa-star"></button>
     </div>
 
     <div class="container">   
@@ -36,7 +44,7 @@
         </div>
 
         <div class="weather-daily">
-            <img src="">
+            <p class="time"></p>
             <p class="temperature"></p>
             <p class="description"></p>
         </div>
@@ -81,21 +89,20 @@
                 </div>
             </div>
         </div>
-
-        <div class="weather-map">
-            <img src="">
-            <p class="temperature"></p>
-            <p class="description"></p>
-        </div>
-
     </div>
 
     <div class="pagination">
-        <span class="dot active"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
+        <span class="dot" data-index="0"></span>
+        <span class="dot" data-index="1"></span>
+        <span class="dot" data-index="2"></span>
+        <span class="dot" data-index="3"></span>
     </div>
 
+    <script
+      src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+      integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+      crossorigin=""
+    ></script>
     <script src="https://kit.fontawesome.com/7c8801c017.js" crossorigin="anonymous"></script>
     <script src="index.js"></script>
 </body>

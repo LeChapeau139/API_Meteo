@@ -31,6 +31,29 @@ function detectSwipeLeft(el, handler) {
     }
 }
 
+// Fonction pour détecter le swipe droit
+function detectSwipeRight(el, handler) {
+    let touchstartX = 0;
+    let touchendX = 0;
+    let touchstartY = 0;
+    let touchendY = 0;
+    el.addEventListener('touchstart', function(event) {
+        touchstartX = event.changedTouches[0].screenX;
+        touchstartY = event.changedTouches[0].screenY;
+    }, false);
+    el.addEventListener('touchend', function(event) {
+        touchendX = event.changedTouches[0].screenX;
+        touchendY = event.changedTouches[0].screenY;
+        handleSwipe();
+    }, false);
+
+    function handleSwipe() {
+        if (touchendX > touchstartX && Math.abs(touchendX - touchstartX) > Math.abs(touchendY - touchstartY)) {
+            handler();
+        }
+    }
+}
+
 // Appeler la fonction pour détecter le swipe gauche
 detectSwipeLeft(document.body, () => {
     currentCityIndex = (currentCityIndex + 1) % swipcities.length;
@@ -56,28 +79,21 @@ search.addEventListener('click', () => {
     updatePaginationIndicator(currentCityIndex);
 });
 
-// Fonction pour détecter le swipe droit
-function detectSwipeRight(el, handler) {
-    let touchstartX = 0;
-    let touchendX = 0;
-    let touchstartY = 0;
-    let touchendY = 0;
-    el.addEventListener('touchstart', function(event) {
-        touchstartX = event.changedTouches[0].screenX;
-        touchstartY = event.changedTouches[0].screenY;
-    }, false);
-    el.addEventListener('touchend', function(event) {
-        touchendX = event.changedTouches[0].screenX;
-        touchendY = event.changedTouches[0].screenY;
-        handleSwipe();
-    }, false);
-
-    function handleSwipe() {
-        if (touchendX > touchstartX && Math.abs(touchendX - touchstartX) > Math.abs(touchendY - touchstartY)) {
-            handler();
+// Fonction pour mettre à jour l'indicateur actif
+function updatePaginationIndicator(currentCityIndex) {
+    const dots = document.querySelectorAll('.pagination .dot');
+    dots.forEach((dot, index) => {
+        if (index === currentCityIndex) {
+            dot.style.backgroundColor = '#1B1B1B'; // Changer la couleur du fond du point
+            dot.style.borderRadius = '50%'; // Rendre le point circulaire si nécessaire
+        } else {
+            dot.style.backgroundColor = '#bbb'; // Réinitialiser la couleur du fond
+            dot.style.color = 'black'; // Réinitialiser la couleur du texte
+            dot.style.border = 'none'; // Retirer la bordure
         }
-    }
+    });
 }
+
 
 // Fonction pour rechercher la météo
 function searchWeather(city) {
