@@ -4,6 +4,8 @@ const weatherBox = document.querySelector('.weather-box');
 const weatherDetails = document.querySelector('.weather-details');
 const error404 = document.querySelector('.not-found');
 
+const swipcities = ['Marseille', 'New York', 'Tokyo', 'Bergen'];
+
 // Fonction pour rechercher la météo
 function searchWeather(city) {
     const APIKey = '449617b922c4e10aa802c200f98db360';
