@@ -45,6 +45,17 @@ detectSwipeRight(document.body, () => {
     updatePaginationIndicator(currentCityIndex);
 });
 
+// Afficher la météo de la première ville au chargement de la page
+showCurrentCityWeather();
+
+// Événement de clic sur le bouton de recherche
+search.addEventListener('click', () => {
+    const city = document.querySelector('.search-box input').value;
+    showCurrentCityWeather(city); // Afficher la météo de la ville saisie
+    showWeatherForecast(city); // Afficher les prévisions météorologiques pour la nouvelle ville
+    updatePaginationIndicator(currentCityIndex);
+});
+
 // Fonction pour détecter le swipe droit
 function detectSwipeRight(el, handler) {
     let touchstartX = 0;
