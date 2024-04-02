@@ -2,7 +2,17 @@ const container = document.querySelector('.container');
 const search = document.querySelector('.search-box button');
 const weatherBox = document.querySelector('.weather-box');
 const weatherDetails = document.querySelector('.weather-details');
+const weatherDaily = document.querySelector('.weather-daily');
+const weatherMap = document.querySelector('.weather-map');
 const error404 = document.querySelector('.not-found');
+let map;
+
+// const cities = document.querySelectorAll('.city'); // Sélectionnez tous les éléments de ville
+
+// // Fonction pour récupérer les villes sauvegardées dans le stockage local
+// function getCitiesFromLocalStorage() {
+//     return JSON.parse(localStorage.getItem('cities')) || [];
+// }
 
 const swipcities = ['Marseille', 'New York', 'Tokyo', 'Bergen'];
 
@@ -54,6 +64,30 @@ function detectSwipeRight(el, handler) {
     }
 }
 
+// Fonction pour afficher la météo de la ville actuelle
+function showCurrentCityWeather(city = null) {
+    const currentCity = city ? city : swipcities[currentCityIndex];
+    searchWeather(currentCity);
+    if (!city) {
+        document.querySelector('.search-box input').value = currentCity;
+    }
+}
+
+// Fonction pour mettre à jour l'indicateur actif
+function updatePaginationIndicator(currentCityIndex) {
+    const dots = document.querySelectorAll('.pagination .dot');
+    dots.forEach((dot, index) => {
+        if (index === currentCityIndex) {
+            dot.style.backgroundColor = '#1B1B1B'; // Changer la couleur du fond du point
+            dot.style.borderRadius = '50%'; // Rendre le point circulaire si nécessaire
+        } else {
+            dot.style.backgroundColor = '#bbb'; // Réinitialiser la couleur du fond
+            dot.style.color = 'black'; // Réinitialiser la couleur du texte
+            dot.style.border = 'none'; // Retirer la bordure
+        }
+    });
+}
+
 // Appeler la fonction pour détecter le swipe gauche
 detectSwipeLeft(document.body, () => {
     currentCityIndex = (currentCityIndex + 1) % swipcities.length;
@@ -79,21 +113,6 @@ search.addEventListener('click', () => {
     updatePaginationIndicator(currentCityIndex);
 });
 
-// Fonction pour mettre à jour l'indicateur actif
-function updatePaginationIndicator(currentCityIndex) {
-    const dots = document.querySelectorAll('.pagination .dot');
-    dots.forEach((dot, index) => {
-        if (index === currentCityIndex) {
-            dot.style.backgroundColor = '#1B1B1B'; // Changer la couleur du fond du point
-            dot.style.borderRadius = '50%'; // Rendre le point circulaire si nécessaire
-        } else {
-            dot.style.backgroundColor = '#bbb'; // Réinitialiser la couleur du fond
-            dot.style.color = 'black'; // Réinitialiser la couleur du texte
-            dot.style.border = 'none'; // Retirer la bordure
-        }
-    });
-}
-
 
 // Fonction pour rechercher la météo
 function searchWeather(city) {
@@ -108,6 +127,40 @@ function searchWeather(city) {
             if (json.cod === '404') {
                 // Gérer l'erreur 404
                 return;
+            }
+
+            const latitude = json.coord.lat;
+            const longitude = json.coord.lon;
+
+            // Vérifier si la carte est déjà initialisée
+            if (map) {
+                // Si oui, mettre à jour la vue de la carte avec les nouvelles coordonnées
+                map.setView([latitude, longitude]);
+
+                // Vérifier si le marqueur existe déjà sur la carte
+                if (marker) {
+                    // Si oui, déplacer le marqueur vers les nouvelles coordonnées
+                    marker.setLatLng([latitude, longitude]);
+                } else {
+                    // Sinon, créer un nouveau marqueur aux nouvelles coordonnées
+                    marker = L.marker([latitude, longitude]).addTo(map);
+                }
+            } else {
+                // Sinon, initialiser la carte et créer le marqueur aux nouvelles coordonnées
+                map = L.map("map").setView([latitude, longitude], 13);
+
+                // Ajouter le calque de tuiles Stadia
+                var Stadia_OSMBright = L.tileLayer(
+                    "https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png",
+                    {
+                        maxZoom: 20,
+                        attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+                    }
+                );
+                Stadia_OSMBright.addTo(map);
+
+                // Créer le marqueur aux nouvelles coordonnées
+                marker = L.marker([latitude, longitude]).addTo(map);
             }
 
             const image = document.querySelector('.weather-box img');
@@ -227,3 +280,5 @@ function searchWeather(city) {
             weatherMap.classList.add('fadeIn');
         });
 }
+
+
