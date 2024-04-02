@@ -6,6 +6,68 @@ const error404 = document.querySelector('.not-found');
 
 const swipcities = ['Marseille', 'New York', 'Tokyo', 'Bergen'];
 
+let currentCityIndex = 0; // Indice de la ville actuelle dans le tableau des villes
+
+// Fonction pour détecter le swipe gauche
+function detectSwipeLeft(el, handler) {
+    let touchstartX = 0;
+    let touchendX = 0;
+    let touchstartY = 0;
+    let touchendY = 0;
+    el.addEventListener('touchstart', function(event) {
+        touchstartX = event.changedTouches[0].screenX;
+        touchstartY = event.changedTouches[0].screenY;
+    }, false);
+    el.addEventListener('touchend', function(event) {
+        touchendX = event.changedTouches[0].screenX;
+        touchendY = event.changedTouches[0].screenY;
+        handleSwipe();
+    }, false);
+
+    function handleSwipe() {
+        if (touchendX < touchstartX && Math.abs(touchendX - touchstartX) > Math.abs(touchendY - touchstartY)) {
+            handler();
+        }
+    }
+}
+
+// Appeler la fonction pour détecter le swipe gauche
+detectSwipeLeft(document.body, () => {
+    currentCityIndex = (currentCityIndex + 1) % swipcities.length;
+    showCurrentCityWeather();
+    updatePaginationIndicator(currentCityIndex);
+});
+
+// Appeler la fonction pour détecter le swipe droit
+detectSwipeRight(document.body, () => {
+    currentCityIndex = (currentCityIndex - 1 + swipcities.length) % swipcities.length;
+    showCurrentCityWeather();
+    updatePaginationIndicator(currentCityIndex);
+});
+
+// Fonction pour détecter le swipe droit
+function detectSwipeRight(el, handler) {
+    let touchstartX = 0;
+    let touchendX = 0;
+    let touchstartY = 0;
+    let touchendY = 0;
+    el.addEventListener('touchstart', function(event) {
+        touchstartX = event.changedTouches[0].screenX;
+        touchstartY = event.changedTouches[0].screenY;
+    }, false);
+    el.addEventListener('touchend', function(event) {
+        touchendX = event.changedTouches[0].screenX;
+        touchendY = event.changedTouches[0].screenY;
+        handleSwipe();
+    }, false);
+
+    function handleSwipe() {
+        if (touchendX > touchstartX && Math.abs(touchendX - touchstartX) > Math.abs(touchendY - touchstartY)) {
+            handler();
+        }
+    }
+}
+
 // Fonction pour rechercher la météo
 function searchWeather(city) {
     const APIKey = '449617b922c4e10aa802c200f98db360';
