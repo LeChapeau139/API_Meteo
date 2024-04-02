@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Roboto:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Day #10 - Weather App | AsmrProg</title>
+</head>
+
+    
+<body>
+
+    <video id="background-video" autoplay loop muted>
+        <source src=""> 
+    </video>
+
+    <div class="bandeau">
+        <div class="dropdown">
+            <button class="fa-solid fa-house"></button>
+            <div class="dropdown-content">
+                <a href="/API/"></a>
+            </div>
+        </div>
+
+        <div class="titre">
+            <h1>Météo APP</h1>
+        </div>
+
+        <div class="question">
+            <button class="fa-solid fa-question"></button>
+        </div>
+    </div>
+
+    <div class="search-box">
+        <i class="fa-solid fa-location-dot"></i>
+        <input type="text" id="recherche" placeholder="Enter your location">
+        <div class="suggestions"></div>
+        <button class="fa-solid fa-magnifying-glass"></button>
+        <button class="fa-solid fa-star"></button>
+    </div>
+
+    <div class="container">   
+
+        <div class="not-found">
+            <img src="images/404.png">
+            <p>Oops! Invalid location :/</p>
+        </div>
+
+        <div class="weather-box">
+            <img src="">
+            <p class="temperature"></p>
+            <p class="description"></p>
+        </div>
+
+        <div class="weather-daily">
+            <img src="">
+            <p class="temperature"></p>
+            <p class="description"></p>
+        </div>
+
+        <div class="weather-details">
+            <div class="humidity">
+                <i class="fa-solid fa-water"></i>
+                <div class="text">
+                    <span></span>
+                    <p>Humidity</p>
+                </div>
+            </div>
+            <div class="wind">
+                <i class="fa-solid fa-wind"></i>
+                <div class="text">
+                    <span></span>
+                    <p>Wind Speed</p>
+                </div>
+            </div>
+
+            <div class="clou">
+                <i class="fa-solid fa-cloud"></i>
+                <div class="text">
+                    <span></span>
+                    <p>Cloudiness</p>
+                </div>
+            </div>
+
+            <div class="temp_diff">
+                <div class="basse">
+                    <i class="fa-solid fa-temperature-arrow-down"></i>
+                    <div class="text">
+                        <span></span>
+                    </div>
+                </div>
+                
+                <div class="haute">
+                    <i class="fa-solid fa-temperature-arrow-up"></i>
+                    <div class="text">
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="weather-map">
+            <img src="">
+            <p class="temperature"></p>
+            <p class="description"></p>
+        </div>
+
+    </div>
+
+    <div class="pagination">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+    </div>
+
+    <script src="https://kit.fontawesome.com/7c8801c017.js" crossorigin="anonymous"></script>
+    <script src="index.js"></script>
+</body>
+
+</html>
