@@ -73,6 +73,12 @@ function showCurrentCityWeather(city = null) {
     }
 }
 
+document.querySelector('.fa-house').addEventListener('click', () => {
+    currentCityIndex = 0; // Définir l'index de la ville actuelle sur 0 (première ville)
+    showCurrentCityWeather(); // Afficher la météo de la première ville
+    updatePaginationIndicator(currentCityIndex); // Mettre à jour l'indicateur de pagination
+});
+
 // Fonction pour mettre à jour l'indicateur actif
 function updatePaginationIndicator(currentCityIndex) {
     const dots = document.querySelectorAll('.pagination .dot');
@@ -111,6 +117,66 @@ search.addEventListener('click', () => {
     showCurrentCityWeather(city); // Afficher la météo de la ville saisie
     showWeatherForecast(city); // Afficher les prévisions météorologiques pour la nouvelle ville
     updatePaginationIndicator(currentCityIndex);
+});
+
+// Fonction pour afficher la pop-up avec les informations
+function showPopup() {
+    // Création des éléments de la pop-up
+    const popupContainer = document.createElement('div');
+    popupContainer.classList.add('popup-container');
+
+    const popupContent = document.createElement('div');
+    popupContent.classList.add('popup-content');
+
+    const popupText = document.createElement('p');
+    popupText.textContent = "Prochaine MAJ : \n\n- Version PC \n- Prévision toutes les 3h\n- Mettre en favori\n\nSource API :\n- OpenweatherMap";
+
+    const closeButton = document.createElement('button');
+    closeButton.textContent = 'Fermer';
+    closeButton.addEventListener('click', () => {
+        popupContainer.remove(); // Supprimer la pop-up lorsque le bouton de fermeture est cliqué
+    });
+
+    // Ajout des éléments à la pop-up
+    popupContent.appendChild(popupText);
+    popupContent.appendChild(closeButton);
+    popupContainer.appendChild(popupContent);
+
+    // Ajout de la pop-up au corps du document
+    document.body.appendChild(popupContainer);
+}
+
+// Événement de clic sur le bouton d'info pour afficher la pop-up
+document.querySelector('.fa-circle-info').addEventListener('click', () => {
+    showPopup();
+});
+
+// Fonction pour empêcher la propagation des événements de clic
+function stopPropagation(event) {
+    event.stopPropagation();
+}
+
+// Événement de clic sur la contenu de la pop-up pour empêcher la propagation des événements de clic
+document.querySelector('.popup-content').addEventListener('click', stopPropagation);
+
+// Fonction pour empêcher le défilement de la page lorsque la pop-up est ouverte
+function disableScroll() {
+    document.body.style.overflow = 'hidden'; // Masquer les barres de défilement
+}
+
+function enableScroll() {
+    document.body.style.overflow = ''; // Rétablir le défilement de la page
+}
+
+// Événement de toucher sur la pop-up pour empêcher le défilement de la page
+document.querySelector('.popup-container').addEventListener('touchstart', (event) => {
+    event.preventDefault(); // Empêcher le comportement par défaut du toucher
+    disableScroll(); // Appeler la fonction pour désactiver le défilement de la page
+});
+
+// Événement de clic sur le bouton de fermeture pour réactiver le défilement de la page
+document.querySelector('.popup-content button').addEventListener('click', () => {
+    enableScroll(); // Appeler la fonction pour réactiver le défilement de la page
 });
 
 
