@@ -184,7 +184,7 @@ function searchWeather(city) {
 
             switch (json.weather[0].main) {
                 case 'Clear':
-                    image.src = 'clear.png';
+                    image.src = 'images/clear.png';
                     fond.src = 'images/ensoleil.png';
                     color_times.style.backgroundColor = 'rgba(7,28,49,255)';
                     color_daily.style.backgroundColor = 'rgba(7,28,49,255)';
@@ -231,7 +231,7 @@ function searchWeather(city) {
                     break;
 
                 case 'Mist':
-                    image.src = 'mist.png';
+                    image.src = 'images/mist.png';
                     fond.src = 'images/misty.jpg';
                     color_times.style.backgroundColor = 'rgba(7,28,49,255)';
                     color_daily.style.backgroundColor = 'rgba(7,28,49,255)';
