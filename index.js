@@ -346,4 +346,3 @@ function searchWeather(city) {
             weatherMap.classList.add('fadeIn');
         });
 }
-
