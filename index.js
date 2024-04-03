@@ -14,7 +14,7 @@ let map;
 //     return JSON.parse(localStorage.getItem('cities')) || [];
 // }
 
-const swipcities = ['Marseille', 'New York', 'Tokyo', 'Bergen'];
+const swipcities = ['Paris', 'New York', 'Londres', 'Los Angeles'];
 
 let currentCityIndex = 0; // Indice de la ville actuelle dans le tableau des villes
 
