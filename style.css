@@ -311,6 +311,16 @@ body{
 
 }
 
+#img-map {
+
+    height: 240px;
+    border-radius: 5%;
+    width: 90%;
+    position: fixed;
+    margin: 20px 17px 15px 18px;
+
+}
+
 .popup-container {
     position: fixed; /* Position fixe par rapport à la fenêtre du navigateur */
     top: 0;
